@@ -1,0 +1,32 @@
+{
+  "name": "creatures-bot",
+  "version": "1.0.0",
+  "description": "discord bot for my personal server",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest",
+    "start": "node src/index.js",
+    "dev": "nodemon --env-file=.env src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadevogt/creatures-bot.git"
+  },
+  "author": "Jade Vogt (jade.vogt97@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jadevogt/creatures-bot/issues"
+  },
+  "homepage": "https://github.com/jadevogt/creatures-bot#readme",
+  "type": "module",
+  "dependencies": {
+    "discord.js": "^14.23.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-plugin-unicorn": "^61.0.2",
+    "nodemon": "^3.1.10",
+    "vitest": "^4.0.1"
+  }
+}

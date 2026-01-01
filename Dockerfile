@@ -1,13 +1,15 @@
-FROM node:20-alpine
+FROM node:20-slim
 
 WORKDIR /app
 
+# Install ffmpeg with rubberband
+RUN apt-get update && \
+    apt-get install -y ffmpeg rubberband-cli librubberband2 && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
 RUN npm ci --only=production
-RUN apk add --no-cache ffmpeg rubberband-ladspa rubberband
-COPY src/ ./src/
 
-USER node
+COPY . .
 
-ENTRYPOINT ["npm"]
-CMD ["start"] 
+CMD ["node", "src/index.js"]

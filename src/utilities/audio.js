@@ -36,7 +36,7 @@ export async function stretchAudio({ fileName, outputFileName, factor }) {
   return new Promise((resolve, reject) => {
     ffmpeg(fileName)
       .audioFilters(
-        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-70dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-70dB",
         `rubberband=tempo=${factor}:pitch=1.0`
       )
       .output(outputFileName)
@@ -56,7 +56,7 @@ export async function pitchShiftAudio({ fileName, outputFileName, factor }) {
   return new Promise((resolve, reject) => {
     ffmpeg(fileName)
       .audioFilters(
-        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-70dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-70dB",
         `rubberband=pitch=${factor}:tempo=1.0`
       )
       .output(outputFileName)
@@ -77,7 +77,7 @@ export async function loopAudio({ fileName, outputFileName, times }) {
   return new Promise((resolve, reject) => {
     ffmpeg(fileName)
       .audioFilters(
-        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-70dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-70dB",
         `aloop=loop=${times - 1}:size=2e9`
       )
       .output(outputFileName)

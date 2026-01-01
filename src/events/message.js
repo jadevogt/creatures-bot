@@ -1,5 +1,6 @@
 import { AttachmentBuilder, Events } from "discord.js";
 import {
+  bassBoost,
   getAudioObject,
   loopAudio,
   pitchShiftAudio,
@@ -10,6 +11,7 @@ const checkMessageAudio = (message) => {
   if (message.content.startsWith("$pitch")) return true;
   if (message.content.startsWith("$tempo")) return true;
   if (message.content.startsWith("$loop")) return true;
+  if (message.content.startswith("$bass")) return true;
   return;
 };
 
@@ -81,6 +83,13 @@ export default [
             factor: factor,
           });
         }
+        if (message.content.startsWith("$bass")) {
+          changed = await bassBoost({
+            fileName: audioObject,
+            magnitude: factor,
+          });
+        }
+
         message.reply({
           content: "edited audio: ",
           files: [changed],

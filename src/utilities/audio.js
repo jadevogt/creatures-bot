@@ -78,3 +78,21 @@ export async function loopAudio({ fileName, outputFileName, times }) {
       .run();
   });
 }
+
+export async function bassBoost({ fileName, outputFileName, magnitude }) {
+  const temporaryDirectory = tmpdir();
+  outputFileName = path.join(
+    temporaryDirectory,
+    outputFileName ?? randomUUID() + "." + fileName.split(".").at(-1)
+  );
+
+  return new Promise((resolve, reject) => {
+    ffmpeg(fileName)
+      .audioFilters(`bass=g=${magnitude}`)
+      .output(outputFileName)
+      .outputOptions("-y")
+      .on("end", () => resolve(outputFileName))
+      .on("error", reject)
+      .run();
+  });
+}

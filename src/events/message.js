@@ -11,7 +11,7 @@ const checkMessageAudio = (message) => {
   if (message.content.startsWith("$pitch")) return true;
   if (message.content.startsWith("$tempo")) return true;
   if (message.content.startsWith("$loop")) return true;
-  if (message.content.startswith("$bass")) return true;
+  if (message.content.startsWith("$bass")) return true;
   return;
 };
 

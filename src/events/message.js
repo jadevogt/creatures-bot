@@ -1,10 +1,15 @@
 import { AttachmentBuilder, Events } from "discord.js";
-import { getAudioObject, pitchShiftAudio } from "../utilities/audio.js";
+import {
+  getAudioObject,
+  loopAudio,
+  pitchShiftAudio,
+} from "../utilities/audio.js";
 import { stretchAudio } from "../utilities/audio.js";
 
 const checkMessageAudio = (message) => {
   if (message.content.startsWith("$pitch")) return true;
   if (message.content.startsWith("$tempo")) return true;
+  if (message.content.startsWith("$loop")) return true;
   return;
 };
 
@@ -58,6 +63,12 @@ export default [
         }
         let changed;
         console.log(factor);
+        if (message.content.startsWith("$loop")) {
+          changed = await loopAudio({
+            fileName: audioObject,
+            times: factor,
+          });
+        }
         if (message.content.startsWith("$pitch")) {
           changed = await pitchShiftAudio({
             fileName: audioObject,

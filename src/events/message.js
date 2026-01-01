@@ -4,6 +4,7 @@ import {
   getAudioObject,
   loopAudio,
   pitchShiftAudio,
+  volume,
 } from "../utilities/audio.js";
 import { stretchAudio } from "../utilities/audio.js";
 
@@ -12,6 +13,7 @@ const checkMessageAudio = (message) => {
   if (message.content.startsWith("$tempo")) return true;
   if (message.content.startsWith("$loop")) return true;
   if (message.content.startsWith("$bass")) return true;
+  if (message.content.startsWith("$volume")) return true;
   return;
 };
 
@@ -85,6 +87,12 @@ export default [
         }
         if (message.content.startsWith("$bass")) {
           changed = await bassBoost({
+            fileName: audioObject,
+            magnitude: factor,
+          });
+        }
+        if (message.content.startsWith("$volume")) {
+          changed = await volume({
             fileName: audioObject,
             magnitude: factor,
           });

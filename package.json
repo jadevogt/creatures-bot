@@ -20,7 +20,9 @@
   "homepage": "https://github.com/jadevogt/creatures-bot#readme",
   "type": "module",
   "dependencies": {
-    "discord.js": "^14.23.2"
+    "axios": "^1.13.2",
+    "discord.js": "^14.23.2",
+    "fluent-ffmpeg": "^2.1.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",

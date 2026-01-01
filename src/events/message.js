@@ -17,6 +17,7 @@ export default [
      */
     execute: async (message) => {
       if (!checkMessageAudio(message)) return;
+      await message.channel.sendTyping();
       try {
         let audioObject;
         let factorString = message.content.split(" ")[1];

@@ -35,7 +35,10 @@ export async function stretchAudio({ fileName, outputFileName, factor }) {
   console.log(outputFileName);
   return new Promise((resolve, reject) => {
     ffmpeg(fileName)
-      .audioFilters(`rubberband=tempo=${factor}:pitch=1.0`)
+      .audioFilters(
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        `rubberband=tempo=${factor}:pitch=1.0`
+      )
       .output(outputFileName)
       .outputOptions("-y")
       .on("end", () => resolve(outputFileName))
@@ -52,7 +55,31 @@ export async function pitchShiftAudio({ fileName, outputFileName, factor }) {
   );
   return new Promise((resolve, reject) => {
     ffmpeg(fileName)
-      .audioFilters(`rubberband=pitch=${factor}:tempo=1.0`)
+      .audioFilters(
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        `rubberband=pitch=${factor}:tempo=1.0`
+      )
+      .output(outputFileName)
+      .outputOptions("-y")
+      .on("end", () => resolve(outputFileName))
+      .on("error", reject)
+      .run();
+  });
+}
+
+export async function loopAudio({ fileName, outputFileName, times }) {
+  const temporaryDirectory = tmpdir();
+  outputFileName = path.join(
+    temporaryDirectory,
+    outputFileName ?? randomUUID() + "." + fileName.split(".").at(-1)
+  );
+
+  return new Promise((resolve, reject) => {
+    ffmpeg(fileName)
+      .audioFilters(
+        "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-50dB:stop_periods=-1:stop_silence=0.1:stop_threshold=-50dB",
+        `aloop=loop=${times - 1}:size=2e9`
+      )
       .output(outputFileName)
       .outputOptions("-y")
       .on("end", () => resolve(outputFileName))

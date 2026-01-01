@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci --only=production
-RUN apt-get install -y ffmpeg
+RUN apk add --no-cache ffmpeg
 COPY src/ ./src/
 
 USER node

@@ -1,4 +1,5 @@
 import { createWriteStream } from "node:fs";
+import { randomUUID } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { finished } from "node:stream/promises";
@@ -12,7 +13,8 @@ import axios from "axios";
  */
 export async function downloadTemporaryFile(file) {
   const temporaryDirectory = tmpdir();
-  const temporaryFilePath = path.join(temporaryDirectory, file.name);
+  const uniqueName = `${randomUUID()}_${file.name}`;
+  const temporaryFilePath = path.join(temporaryDirectory, uniqueName);
   const fileURL = file.url;
   try {
     const response = await axios({
